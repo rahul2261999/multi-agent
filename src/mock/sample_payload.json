@@ -1,0 +1,59 @@
+{
+  "supervisor": {
+    "remaining_steps": 10,
+    "messages": [
+      {
+        "content": "i want to book an appointment for next monday 5 pm",
+        "type": "human"
+      }
+    ],
+    "patient": {
+      "id": "4349d0aa-7d30-44fb-99f9-e7c0e5752fc0",
+      "name": "Alice",
+      "age": 26,
+      "phone_number": "+19876543214"
+    },
+    "providers": [],
+    "selected_provider": null,
+    "available_slots": [],
+    "selected_slot": null,
+    "available_prescriptions": [],
+    "selected_prescription": null
+  },
+  "appointment_agent": {
+    "remaining_steps": 10,
+    "messages": [
+      {
+        "content": "i want to book an appointment for next monday 5 pm",
+        "type": "human"
+      }
+    ],
+    "patient": {
+      "id": "4349d0aa-7d30-44fb-99f9-e7c0e5752fc0",
+      "name": "Alice",
+      "age": 26,
+      "phone_number": "+19876543214"
+    },
+    "providers": [],
+    "selected_provider": null,
+    "available_slots": [],
+    "selected_slot": null
+  },
+  "prescription_agent": {
+    "remaining_steps": 10,
+    "messages": [
+      {
+        "content": "i want to refill my prescription for atorvastatin",
+        "type": "human"
+      }
+    ],
+    "patient": {
+      "id": "4349d0aa-7d30-44fb-99f9-e7c0e5752fc0",
+      "name": "Alice",
+      "age": 26,
+      "phone_number": "+19876543214"
+    },
+    "available_prescriptions": [],
+    "selected_prescription": null
+  }
+}

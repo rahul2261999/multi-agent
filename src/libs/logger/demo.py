@@ -9,7 +9,6 @@ This demonstrates:
 - File rotation
 """
 
-import os
 import time
 from pathlib import Path
 
@@ -217,7 +216,7 @@ def main():
     print("=" * 50)
     
     # Setup the logging system
-    logger_manager = setup_logger()
+    setup_logger()
     
     # Run all demonstrations
     demonstrate_basic_logging()
