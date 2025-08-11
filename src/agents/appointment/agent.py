@@ -49,4 +49,5 @@ appointment_agent = create_react_agent(
     tools=all_tools,
     prompt=message_history_prompt,
     state_schema=AppointmentAgentState,
+    checkpointer=True
 )

@@ -65,7 +65,7 @@ def list_prescriptions(
     - it should be a valid prescription id (UUID)
   date_time:
     - it should be a valid date and time in the format of YYYY-MM-DD HH:MM:SS
-    - it should always be in future (atleast current date time + 15 minutes), current date and time is in ist {datetime.now(ZoneInfo("Asia/Kolkata")).strftime("%Y-%m-%d %H:%M:%S")}
+    - it should always be in future (atleast 15 minutes from current date and time), current date and time is in ist {datetime.now(ZoneInfo("Asia/Kolkata")).strftime("%Y-%m-%d %H:%M:%S")}
     - reject if date time is in the past
 
   output:

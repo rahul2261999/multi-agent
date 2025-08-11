@@ -212,17 +212,6 @@ def book_appointment(
     tool_call_id: Annotated[str, InjectedToolCallId],
 ):
     try:
-        if state.patient is None:
-            return Command(
-                update={
-                    "messages": [
-                        ToolMessage(
-                            content="Patient not found", tool_call_id=tool_call_id
-                        )
-                    ]
-                },
-            )
-
         selected_slot = next(
             (slot for slot in state.available_slots if slot.id == UUID(slot_id)), None
         )

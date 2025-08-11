@@ -31,5 +31,6 @@ prescription_agent = create_react_agent(
     name="prescription_agent",
     tools=all_tools,
     prompt=message_history_prompt,
-    state_schema=PrescriptionAgentState
+    state_schema=PrescriptionAgentState,
+    checkpointer=True
 )

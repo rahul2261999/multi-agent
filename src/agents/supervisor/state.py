@@ -3,10 +3,7 @@ from langchain_core.messages import AnyMessage
 from langgraph.graph.message import add_messages
 from pydantic import BaseModel, Field
 
-from src.mock.patient import Patient
 
-
-class MainState(BaseModel):
-  remaining_steps: int = Field(default=10)
+class SupervisorState(BaseModel):
   messages: Annotated[list[AnyMessage], add_messages]
-  patient: Patient
+  remaining_steps: int = Field(default=10)

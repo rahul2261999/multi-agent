@@ -3,7 +3,7 @@
   "graphs": {
     "appointment_agent": "./src/agents/appointment/agent.py:appointment_agent",
     "prescription_agent": "./src/agents/prescription/agent.py:prescription_agent",
-    "supervisor_agent": "./src/agents/supervisor/agent.py:supervisor_agent"
+    "main_agent": "./src/agents/main_agent.py:main_agent"
   },
   "env": ".env"
 }
