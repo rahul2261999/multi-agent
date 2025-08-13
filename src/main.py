@@ -5,35 +5,44 @@ Run with:
 """
 
 from fastapi import FastAPI
+from contextlib import asynccontextmanager
 
 # Import the Loguru setup helper from our library
-from src.libs.logger.manager import setup_logger
-
-# Initialise logging system
-logger_manager = setup_logger()
-logger = logger_manager.get_logger(__name__)
-
-# Create the FastAPI instance
-app = FastAPI(title="Multi-Agents API")
+from src.libs.logger.manager import get_logger
+from src.libs.redis import get_redis_client, init_checkpoint_saver
 
 
-@app.on_event("startup")
-async def on_startup() -> None:
-    """Actions to perform when the application starts."""
+# Initialise logging system``
+logger = get_logger("main")
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
     logger.info("FastAPI application is starting up …")
+    # Initialize Redis connection early and verify connectivity
+    try:
+        redis_client = get_redis_client()
+        await redis_client.ping()
+        await init_checkpoint_saver()  # ensure checkpoint saver is initialized
+        logger.info("Connected to Redis successfully and initialized checkpoint saver")
 
+        # Register routes only AFTER Redis is initialized
+        from src.apis.main import api_router
+        app.include_router(api_router, prefix="/api/v1")
+        
 
-@app.on_event("shutdown")
-async def on_shutdown() -> None:
-    """Actions to perform when the application shuts down."""
+    except Exception as exc:
+        logger.error(f"Failed to connect to Redis on startup: {exc}")
+        raise
+
+    yield
+
     logger.info("FastAPI application is shutting down …")
 
+    await redis_client.close()  
 
-@app.get("/health", tags=["Health"])
-async def health() -> dict[str, str]:
-    """Simple health-check endpoint."""
-    return {"status": "ok"}
 
+# Create the FastAPI instance with lifespan handler
+app = FastAPI(title="Multi-Agents API", lifespan=lifespan)
 
 # Development entry-point ----------------------------------------------------
 if __name__ == "__main__":  # pragma: no cover — only used for ad-hoc runs

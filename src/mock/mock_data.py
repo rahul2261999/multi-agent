@@ -78,9 +78,9 @@ def _generate_slots_for_provider(provider: Provider, *, days_ahead: int = 15) ->
             new_slot = Slot(provider_id=provider.id, start=start_dt_utc, end=end_dt_utc)
             slot_store.add(new_slot)
             # logger.success(f"Added slot: {new_slot.model_dump_json(indent=2)}")
-            logger.success(f"utc slot start: {new_slot.start.astimezone(timezone.utc).strftime('%Y-%m-%d %H:%M:%S')}, utc slot end: {new_slot.end.astimezone(timezone.utc).strftime('%Y-%m-%d %H:%M:%S')}")
-            logger.success(f"slot start: {new_slot.start.astimezone(IST).strftime('%Y-%m-%d %H:%M:%S')}, slot end: {new_slot.end.astimezone(IST).strftime('%Y-%m-%d %H:%M:%S')}")
-            logger.info("\n")
+            # logger.success(f"utc slot start: {new_slot.start.astimezone(timezone.utc).strftime('%Y-%m-%d %H:%M:%S')}, utc slot end: {new_slot.end.astimezone(timezone.utc).strftime('%Y-%m-%d %H:%M:%S')}")
+            # logger.success(f"slot start: {new_slot.start.astimezone(IST).strftime('%Y-%m-%d %H:%M:%S')}, slot end: {new_slot.end.astimezone(IST).strftime('%Y-%m-%d %H:%M:%S')}")
+            # logger.info("\n")
 
 for provider in provider_store.all():
     _generate_slots_for_provider(provider)
@@ -111,4 +111,4 @@ for p in PRESCRIPTIONS_DATA:
         next_refill_date=None,
     )
     prescription_store.add(prescription)
-    logger.success(f"Added prescription: {prescription.model_dump()}")
+    # logger.success(f"Added prescription: {prescription.model_dump()}")

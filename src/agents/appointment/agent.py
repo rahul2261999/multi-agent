@@ -2,13 +2,14 @@ from langchain_core.messages import SystemMessage
 from langgraph.prebuilt import create_react_agent
 from langchain.chat_models import init_chat_model
 
+from src.agents.state import Configuration
 from src.agents.appointment.state import AppointmentAgentState
 from src.core.llm_provider import LLMProvider, LLMModel
 from src.libs.logger.manager import get_logger
 from src.agents.appointment.prompt import agent_prompt
 from src.agents.appointment.tools import (
     list_appointments,
-    book_appointment,
+    book_appointment,   
     reschedule_appointment,
     cancel_appointment,
     confirm_appointment,
@@ -49,5 +50,6 @@ appointment_agent = create_react_agent(
     tools=all_tools,
     prompt=message_history_prompt,
     state_schema=AppointmentAgentState,
-    checkpointer=True
+    checkpointer=True,
+    context_schema=Configuration,
 )

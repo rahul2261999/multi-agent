@@ -1,13 +1,10 @@
-from ctypes import cast
 from langgraph.graph import END, START, StateGraph
+from langgraph.types import Checkpointer
 
-from src.agents.state import MainState
+from src.agents.state import Configuration, MainState
 from src.agents.supervisor.agent import supervisor_agent
 from src.agents.appointment.agent import appointment_agent
 from src.agents.prescription.agent import prescription_agent
-
-
-
 
 # def supervisor_node(state: MainState):
 
@@ -47,7 +44,9 @@ from src.agents.prescription.agent import prescription_agent
 
 
 
-state_graph = StateGraph(state_schema=MainState)
+
+
+state_graph = StateGraph(state_schema=MainState, context_schema=Configuration)
 
 state_graph.add_node("supervisor", supervisor_agent, destinations=tuple(["appointment_agent", "prescription_agent", END]))
 state_graph.add_node("appointment_agent", appointment_agent)
@@ -58,3 +57,7 @@ state_graph.add_edge("appointment_agent", END)
 state_graph.add_edge("prescription_agent", END)
 
 main_agent = state_graph.compile(name="main_agent")
+
+
+def build_main_agent_with_checkpointer(checkpointer: Checkpointer):
+  return state_graph.compile(name="main_agent", checkpointer=checkpointer)

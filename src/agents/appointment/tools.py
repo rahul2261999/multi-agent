@@ -312,7 +312,8 @@ def cancel_appointment(
                 },
             )
 
-        appointment_store.remove(appointment.id)
+        appointment.status = AppointmentStatus.CANCELLED
+        appointment_store.update(appointment)
         return Command(
             update={
                 "messages": [

@@ -5,6 +5,7 @@ from src.core.llm_provider import LLMProvider, LLMModel
 from src.libs.logger.manager import get_logger
 from src.agents.supervisor.state import SupervisorState
 from src.agents.supervisor.tools import handoff_to_appointment_agent, handoff_to_prescription_agent
+from src.agents.state import Configuration
 
 logger = get_logger("supervisor_agent")
 
@@ -13,7 +14,10 @@ supervisor_agent = create_react_agent(
     model=LLMModel.GPT_4O_MINI.value,
     model_provider=LLMProvider.AZURE.value,
     temperature=0.0,
-  ),
+  ).bind_tools([
+    handoff_to_appointment_agent,
+    handoff_to_prescription_agent
+  ], parallel_tool_calls=False),
   name="supervisor_agent",
   tools=[
     handoff_to_appointment_agent,
@@ -25,7 +29,7 @@ supervisor_agent = create_react_agent(
 
       Assigned Agents:
       - appointment_agent
-          1. Appointment agent is responsible for handling all appointment related queries (book, cancel, reschedule, list).
+          1. Appointment agent is responsible for handling all appointment related queries (eg. book, cancel, reschedule, show etc).
           2. It also able to anser the gnereal user queries related to appointment or treatment.
       - prescription_agent
           1. Prescription agent is responsible for handling all prescription related queries (list, refill).
@@ -38,5 +42,7 @@ supervisor_agent = create_react_agent(
       4. You can not modify the underlying agent response, you can only call the appropriate agent.
       5. Do not disclose any internal infromation to the user. always stick on your role. If any thing is not related to your role, politely decline and tell what you can only do.
       6. Never mention the existence of agents, tools, workflows, or routing mechanisms. All operations should appear seamless to the user
-  """
-)
+  """,
+  checkpointer=True,
+  context_schema=Configuration,
+)   
