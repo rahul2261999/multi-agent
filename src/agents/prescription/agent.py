@@ -17,7 +17,7 @@ all_tools = [
 
 model = init_chat_model(
   model=LLMModel.GPT_4O_MINI.value,
-  model_provider=LLMProvider.AZURE.value,
+  model_provider=LLMProvider.OPENAI.value,
   temperature=0.0,
 )
 

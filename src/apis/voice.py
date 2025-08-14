@@ -125,8 +125,9 @@ async def generate_response(
             await stream_callback("", True)
 
     except Exception as e:
+        await stream_callback("Something went wrong, please try again later", False)
+        await stream_callback("", True)
         logger.error(f"Error generating response: {e}")
-        raise e
 
 
 voice_router = APIRouter(tags=["Voice"])

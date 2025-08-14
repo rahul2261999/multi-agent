@@ -12,7 +12,7 @@ logger = get_logger("supervisor_agent")
 supervisor_agent = create_react_agent(
   model=init_chat_model(
     model=LLMModel.GPT_4O_MINI.value,
-    model_provider=LLMProvider.AZURE.value,
+    model_provider=LLMProvider.OPENAI.value,
     temperature=0.0,
   ).bind_tools([
     handoff_to_appointment_agent,
