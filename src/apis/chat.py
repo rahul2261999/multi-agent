@@ -68,7 +68,7 @@ async def generate_response(
                         response += messagechunk.content
                         await stream_callback(messagechunk.content, False)
 
-            logger.debug(f"Full response generated {response}")
+            logger.info(f"Full response generated {response}")
             await stream_callback("", True)
 
         else:
@@ -99,7 +99,7 @@ async def generate_response(
                         response += messagechunk.content
                         await stream_callback(messagechunk.content, False)
 
-            logger.debug(f"Full response generated {response}")
+            logger.info(f"Full response generated {response}")
             await stream_callback("", True)
 
     except Exception as e:

@@ -77,7 +77,7 @@ async def generate_response(
                 final_response += chunk_response
                 await stream_callback(chunk_response, False)
 
-            logger.debug(f"Full response generated {final_response}")
+            logger.info(f"Full response generated {final_response}")
             await stream_callback("", True)
 
         else:
@@ -109,7 +109,7 @@ async def generate_response(
                     ):
                         chunk_response_batch.append(messagechunk.content)
 
-                        if len(chunk_response_batch) > 10:
+                        if len(chunk_response_batch) > 20:
                             chunk_response = "".join(chunk_response_batch)
                             final_response += chunk_response
 
@@ -121,7 +121,7 @@ async def generate_response(
                 final_response += chunk_response
                 await stream_callback(chunk_response, False)
 
-            logger.debug(f"Full response generated {final_response}")
+            logger.info(f"Full response generated {final_response}")
             await stream_callback("", True)
 
     except Exception as e:

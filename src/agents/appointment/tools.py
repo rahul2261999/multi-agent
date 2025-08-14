@@ -173,10 +173,13 @@ def get_available_slots(
 
         converted_slots_in_ist = []
         for slot in slots:
-            if slot.start.date() == converted_date_time_in_utc.date():
+            logger.info(f"slot start date: {slot.start.date()}")
+            if slot.start.date() >= converted_date_time_in_utc.date():
                 slot.start = slot.start.astimezone(ZoneInfo("Asia/Kolkata"))
                 slot.end = slot.end.astimezone(ZoneInfo("Asia/Kolkata"))
                 converted_slots_in_ist.append(slot.model_dump())
+
+        logger.info(f"Converted slots in IST: {converted_slots_in_ist}")
             
         return Command(
             update={
